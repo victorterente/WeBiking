@@ -1,0 +1,32 @@
+select ciclista_nome
+from ciclista
+order by ciclista_dtnasc
+-- lista dos nomes dos ciclistas ordenado pelo mais velho 
+
+select *
+from organizador 
+where not organizador_genero = 'M'
+
+-- organizadores que nao sao do genero masculino
+
+SELECT *
+FROM ciclista
+WHERE ciclista_dtnasc BETWEEN '1995-01-01' AND '2000-01-01';
+-- ciclistas nascidos entre 1995 e 2000
+
+select ciclista_nome
+from ciclista
+union
+select organizador_nome
+from organizador
+-- todos os ciclistas e organizadores
+
+SELECT AVG(reserva_preco)
+FROM reserva
+--media do preco das reservas
+
+select count(ciclista_genero), ciclista_genero
+from ciclista
+group by ciclista_genero
+order by count(ciclista_genero) desc
+--contagem de ciclistas femeninos e masculinos 

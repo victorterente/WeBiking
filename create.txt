@@ -1,0 +1,137 @@
+create table  ciclista ( ciclista_id int  ,
+					  ciclista_nome varchar(60) not null,
+					  ciclista_dtnasc date not null,
+					  ciclista_genero char(1) not null,
+                      ciclista_email varchar(60),
+                      ciclista_pass varchar(30),
+                      ciclista_tlm int,
+					 primary key ( ciclista_id));
+					 
+					 
+create table organizador ( organizador_id int ,
+					  organizador_nome varchar(60) not null,
+					  organizador_dtnasc date not null,
+					  organizador_genero char(1) not null,
+					  organizador_email varchar(30),
+                      organizador_pass varchar(30),
+                      organizador_tlm int,
+					 primary key ( organizador_id));
+                     
+create table  evento ( evento_id int ,
+						    evento_origem varchar(30) not null,
+                           evento_destino varchar(30) not null,
+                            evento_participantes int not null,
+                            evento_desc varchar(60) not null,
+                            percurso_id int,
+						   primary key ( evento_id));       
+                           
+create table eventoEstado (evento_estado varchar(30),
+						  evento_estado_id int ,
+                            primary key( evento_estado_id));
+                            
+create table organizador_has_evento ( organizador_id int,
+                                     evento_id int);
+                            
+create table  eventoInfo ( evento_data date,
+						 ciclista_id int,
+                         evento_estado_id int,
+                         evento_id int);
+						
+
+						   
+						   
+create table percurso ( percurso_id int ,
+					    primary key ( percurso_id));
+						 
+create table percurso_has_pp( percurso_id int, 
+							  pontopassagem_id int);	
+
+
+create table pontopassagem (pontopassagem_id int,
+							  pontopassagem_nome varchar(60),
+							  primary key( pontopassagem_id));
+
+
+create table reserva( reserva_id int ,
+					 ciclista_id int,
+                     bicicleta_id int,
+					 reserva_estado_id int,
+                     reserva_preco float,
+					  primary key ( reserva_id));
+
+
+create table bicicleta(bicicleta_id int,
+					  bicicleta_desc varchar(100),
+                      tipobicicleta_id int,
+					  primary key (bicicleta_id));
+
+
+create table tipoBicicleta(tipobicicleta_tipo varchar(60),
+                           tipobicicleta_id int,
+                            primary key (tipobicicleta_id) );
+
+
+create table estadoReserva(reserva_estado varchar(30),
+							 reserva_estado_id int,
+                            primary key( reserva_estado_id));
+
+create table reserva_has_estado( reserva_id int,
+							     reserva_estado_id int);
+
+
+
+alter table organizador_has_evento add constraint organizador_fk_organizador
+            foreign key (organizador_id) references organizador(organizador_id) 
+			ON DELETE NO ACTION ON UPDATE NO ACTION;
+            
+alter table organizador_has_evento add constraint organizador_fk_evento
+            foreign key (evento_id) references evento(evento_id) 
+			ON DELETE NO ACTION ON UPDATE NO ACTION;
+            
+            
+alter table evento add constraint evento_fk_percurso
+		foreign key (percurso_id) references percurso(percurso_id)
+        ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+            
+alter table percurso_has_pp add constraint pontopassagem_fk_percurso
+            foreign key (percurso_id) references percurso(percurso_id) 
+			ON DELETE NO ACTION ON UPDATE NO ACTION;
+       
+
+alter table percurso_has_pp add constraint percurso_fk_pontopassagem
+            foreign key (pontopassagem_id) references pontopassagem(pontopassagem_id) 
+			ON DELETE NO ACTION ON UPDATE NO ACTION;
+            
+alter table eventoInfo add constraint eventoInfo_fk_ciclista
+			foreign key (ciclista_id) references ciclista(ciclista_id)
+            ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+alter table eventoInfo add constraint AnuncioInfo_fk_eventoEstado
+			foreign key (evento_estado_id) references eventoEstado(evento_estado_id)
+            ON DELETE NO ACTION ON UPDATE NO ACTION;
+            
+alter table eventoInfo add constraint eventoInfo_fk_evento
+			foreign key (evento_id) references evento(evento_id)
+            ON DELETE NO ACTION ON UPDATE NO ACTION;
+            
+            
+alter table reserva add constraint reserva_fk_ciclista
+			foreign key (ciclista_id) references ciclista(ciclista_id)
+            ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+alter table reserva add constraint reserva_fk_bicicleta
+			foreign key (bicicleta_id) references bicicleta(bicicleta_id)
+            ON DELETE NO ACTION ON UPDATE NO ACTION;
+            
+alter table reserva_has_estado add constraint estadoReserva_fk_reserva
+			foreign key (reserva_id) references reserva(reserva_id)
+            ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+alter table reserva_has_estado add constraint reserva_fk_estadoReserva
+			foreign key (reserva_estado_id) references estadoReserva(reserva_estado_id)
+            ON DELETE NO ACTION ON UPDATE NO ACTION;
+            
+alter table bicicleta add constraint bicicleta_fk_tipoBicicleta
+			foreign key (tipobicicleta_id) references tipoBicicleta(tipobicicleta_id)
+            ON DELETE NO ACTION ON UPDATE NO ACTION;

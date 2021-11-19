@@ -1,0 +1,81 @@
+insert into ciclista (ciclista_id, ciclista_nome, ciclista_dtnasc, ciclista_genero, ciclista_email, ciclista_pass, ciclista_tlm) values ('1', 'Joaquim Pires Lopes',to_date('1995.01.01','%Y.%m.%d'),'M','jpl@gmail.com','ihd2hwd2',928340843);
+insert into ciclista (ciclista_id, ciclista_nome, ciclista_dtnasc, ciclista_genero, ciclista_email, ciclista_pass, ciclista_tlm) values ('2', 'Ana Maria Fonseca',to_date('1997.03.03','%Y.%m.%d'),'F','ana@sapo.pt','jhh2jde',918240824);
+insert into ciclista (ciclista_id, ciclista_nome, ciclista_dtnasc, ciclista_genero, ciclista_email, ciclista_pass, ciclista_tlm) values ('3', 'Paula Antunes',to_date('1996.07.06','%Y.%m.%d'),'F','pantunes@sapo.pt','kjhbd2jhj2de',923289238);
+insert into ciclista (ciclista_id, ciclista_nome, ciclista_dtnasc, ciclista_genero, ciclista_email, ciclista_pass, ciclista_tlm) values ('4', 'Joana Ramalho Silva',to_date('1984.09.23','%Y.%m.%d'),'F','juana@mac.com','oakjkaj',928323929);
+insert into ciclista (ciclista_id, ciclista_nome, ciclista_dtnasc, ciclista_genero, ciclista_email, ciclista_pass, ciclista_tlm) values ('5', 'Rui Manuel Silva',to_date('1994.08.15','%Y.%m.%d'),'M','rms@gmail.com','hjwpwqo',938329382);
+insert into ciclista (ciclista_id, ciclista_nome, ciclista_dtnasc, ciclista_genero, ciclista_email, ciclista_pass, ciclista_tlm) values ('6', 'João Paulo Santos',to_date('1991.11.16','%Y.%m.%d'),'M','jps@yahoo.com','jedjdede',928483934);  
+
+
+insert into organizador (organizador_id, organizador_nome, organizador_dtnasc, organizador_genero, organizador_email, organizador_pass, organizador_tlm) values ('7','Miguel Pinto Leite',to_date('1994.01.07','%Y.%m.%d'),'M','mpl@zmail.com','dwjwdeoed',938291829);
+insert into organizador (organizador_id, organizador_nome, organizador_dtnasc, organizador_genero, organizador_email, organizador_pass, organizador_tlm) values ('8','Francisco Costa Rosa',to_date('1998.02.16','%Y.%m.%d'),'M','fcr12@gmail.com','jdwdjwhde',918383829);
+insert into organizador (organizador_id, organizador_nome, organizador_dtnasc, organizador_genero, organizador_email, organizador_pass, organizador_tlm) values ('9','Elsa Fialho Pinto',to_date('1999.10.29','%Y.%m.%d'),'F','elsafi@sapo.pt','jkjekeji1',938439283);
+
+
+insert into percurso(percurso_id) values ('33');
+insert into percurso(percurso_id) values ('34');
+insert into percurso(percurso_id) values ('35');
+
+insert into evento (evento_id, percurso_id, evento_origem, evento_destino, evento_participantes, evento_desc) values ('10', '33', 'vila de sintra', 'praia      grande', '3', 'Passeio por sintra');
+insert into evento (evento_id, percurso_id, evento_origem, evento_destino, evento_participantes, evento_desc) values ('11', '34','marina de cascais', 'praia do guincho', '2', 'Passeio por cascais');
+insert into evento (evento_id, percurso_id, evento_origem, evento_destino, evento_participantes, evento_desc) values ('12', '35', 'Serra do monsanto', 'Serra do monsanto', '2', 'Passeio pela serra');
+
+
+insert into eventoEstado(evento_estado_id, evento_estado) values ('13', 'ativo');
+insert into eventoEstado(evento_estado_id, evento_estado) values ('14', 'cancelado');
+
+
+insert into organizador_has_evento(organizador_id, evento_id) values ('7', '10');
+insert into organizador_has_evento(organizador_id, evento_id) values ('8', '11');
+insert into organizador_has_evento(organizador_id, evento_id) values ('9', '12');
+
+
+insert into eventoinfo (evento_data, ciclista_id, evento_estado_id, evento_id) values ( current_date, 1, 13, 10); 
+insert into eventoinfo (evento_data, ciclista_id, evento_estado_id, evento_id) values ( current_date, 2, 14, 11); 
+insert into eventoinfo (evento_data, ciclista_id, evento_estado_id, evento_id) values ( current_date , 3, 13, 12); 
+insert into eventoinfo (evento_data, ciclista_id, evento_estado_id, evento_id) values ( current_date, 4, 13, 12); 
+insert into eventoinfo (evento_data, ciclista_id, evento_estado_id, evento_id) values ( current_date, 5, 13, 10); 
+
+
+insert into estadoReserva(reserva_estado_id, reserva_estado) values ('15', 'disponivel');
+insert into estadoReserva(reserva_estado_id, reserva_estado) values ('16', 'indisponivel');
+
+
+insert into tipoBicicleta(tipobicicleta_id, tipobicicleta_tipo) values ('17', 'Bicicleta de ciclismo');
+insert into tipoBicicleta(tipobicicleta_id, tipobicicleta_tipo) values ('18', 'Bicicleta de montanha');
+insert into tipoBicicleta(tipobicicleta_id, tipobicicleta_tipo) values ('19', 'Bicicleta eletrica');
+
+
+insert into bicicleta(bicicleta_id, tipobicicleta_id, bicicleta_desc) values ('20', '17', 'aconselhavel para ciclismo de estrada');
+insert into bicicleta(bicicleta_id, tipobicicleta_id, bicicleta_desc) values ('21', '18', 'aconselhavel para terrenos irregulares com muitos desniveis');
+insert into bicicleta(bicicleta_id, tipobicicleta_id, bicicleta_desc) values ('22', '19', 'aconselhavel para passeios mais turisticos com menos intensidade ');
+
+
+insert into reserva(reserva_id, ciclista_id, bicicleta_id, reserva_estado_id, reserva_preco) values ('23', '2', '20', '15', '30.5');
+insert into reserva(reserva_id, ciclista_id, bicicleta_id, reserva_estado_id, reserva_preco) values ('24', '4', '21', '15', '25');
+insert into reserva(reserva_id, ciclista_id, bicicleta_id, reserva_estado_id, reserva_preco) values ('25', '1', '21', '15', '25');
+insert into reserva(reserva_id, ciclista_id, bicicleta_id, reserva_estado_id, reserva_preco) values ('26', '5', '22', '16', '20.5');
+
+
+insert into reserva_has_estado(reserva_estado_id, reserva_id) values ('15', '23');
+insert into reserva_has_estado(reserva_estado_id, reserva_id) values ('15', '24');
+insert into reserva_has_estado(reserva_estado_id, reserva_id) values ('15', '25');
+insert into reserva_has_estado(reserva_estado_id, reserva_id) values ('16', '26');
+
+
+insert into pontopassagem( pontopassagem_id, pontopassagem_nome) values ('27','galamares');
+insert into pontopassagem( pontopassagem_id, pontopassagem_nome) values ('28','colares');
+insert into pontopassagem( pontopassagem_id, pontopassagem_nome) values ('29','almoçageme');
+insert into pontopassagem( pontopassagem_id, pontopassagem_nome) values ('30','praia da arriba');
+insert into pontopassagem( pontopassagem_id, pontopassagem_nome) values ('31','forte de sao jorge');
+insert into pontopassagem( pontopassagem_id, pontopassagem_nome) values ('32','farol da guia');
+
+
+
+
+
+insert into percurso_has_pp(percurso_id, pontopassagem_id) values ('33','27');
+insert into percurso_has_pp(percurso_id, pontopassagem_id) values ('33','28');
+insert into percurso_has_pp(percurso_id, pontopassagem_id) values ('33','29');
+insert into percurso_has_pp(percurso_id, pontopassagem_id) values ('34','30');
+insert into percurso_has_pp(percurso_id, pontopassagem_id) values ('34','31');
+insert into percurso_has_pp(percurso_id, pontopassagem_id) values ('34','32');
