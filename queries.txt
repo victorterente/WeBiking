@@ -1,32 +1,26 @@
-select ciclista_nome
-from ciclista
-order by ciclista_dtnasc
--- lista dos nomes dos ciclistas ordenado pelo mais velho 
-
-select *
-from organizador 
-where not organizador_genero = 'M'
-
--- organizadores que nao sao do genero masculino
-
-SELECT *
-FROM ciclista
-WHERE ciclista_dtnasc BETWEEN '1995-01-01' AND '2000-01-01';
--- ciclistas nascidos entre 1995 e 2000
-
-select ciclista_nome
-from ciclista
-union
-select organizador_nome
-from organizador
--- todos os ciclistas e organizadores
-
-SELECT AVG(reserva_preco)
-FROM reserva
---media do preco das reservas
-
-select count(ciclista_genero), ciclista_genero
-from ciclista
-group by ciclista_genero
-order by count(ciclista_genero) desc
---contagem de ciclistas femeninos e masculinos 
+--numero de eventos 
+select count(evento_id)
+from evento
+--soma de todas as reservas feitas
+select sum(reserva_preco)
+from reserva
+--nome dos utilizadores por ordem ascedente de idades
+select utilizador_nome 
+from utilizador 
+order by utilizador_dtnasc Asc
+--descrição do evento onde o numero de participantes é entre 2 e 3
+select evento_desc
+from evento 
+where evento_participantes between '2' and '3' 
+--os utilizadores que são organizadores
+select  utilizador_nome 
+from utilizador
+inner join eventoinfo on utilizador_id = info_organizador_id
+--os utilizadores que são participantes
+select  utilizador_nome 
+from utilizador
+inner join eventoinfo on utilizador_id = info_utilizador_id
+--pontos de passagem começados pela letra F
+select  pontopassagem_nome
+from pontopassagem
+where pontopassagem_nome like 'f%'
