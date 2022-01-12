@@ -1,0 +1,79 @@
+--Casos de utilização 
+--1ºcaso, criar um evento
+insert into evento (evento_origem, evento_destino, evento_organizador,"+
+    "evento_data, evento_descricao)"+
+    "values(:#{#evento.origem}, :#{#evento.destino}, "+
+    ":#{#evento.organizador}, :#{#evento.data}"+
+    ", :#{#evento.descricao} )
+--2ºcaso, inscrever num evento
+insert into participante (part_even_id, part_util_id)
+   values(:#{#participante.eventoid}, :#{#participante.utilizadorid} )
+  
+--3ºcaso, reservar uma bicicleta
+insert into reserva (reser_utilizador_id, reser_bicicleta_id)
+    values(:#{#reserva.reservautilizadorid}, :#{#reserva.reservabicicletaid} )
+
+
+-- Ver informações de um utilizador
+select * 
+from utilizador
+where utilizador_nome like ':nome'
+
+
+--nome dos utilizadores por ordem ascedente de idades
+select utilizador_nome 
+from utilizador 
+order by utilizador_dtnasc Asc
+
+
+--bicicletas que custam entre 25 e 28 euros 
+Select bicicleta_tipo, bicicleta_cor
+from bicicleta 
+where bicicleta_preco between '25' and '28'
+
+
+--eventos disponiveis dada uma certa origem
+select * 
+from evento
+where evento_origem like ':origem'
+
+-- Ver participantes de um certo evento 
+select utilizador_nome
+from utilizador
+inner join participante on part_util_id = utilizador_id
+inner join evento on part_even_id = evento_id
+where evento_id = ':eventoid'
+
+
+--Ver eventos criados de um certo utilizador--
+
+select utilizador_nome, evento_descricao
+from utilizador
+inner join evento on utilizador_id = evento_organizador
+where evento_organizador = '8'
+
+--Ver bicicletas mais reservadas
+SELECT Count(utilizador_nome), bicicleta_tipo, bicicleta_cor
+from utilizador
+inner join reserva on utilizador_id = reser_utilizador_id
+inner join bicicleta on bicicleta_id = reser_bicicleta_id
+Group by bicicleta_id, bicicleta_tipo, bicicleta_cor
+order by bicicleta_id
+
+--Ver total gasto em reservas de um certo utilizador
+select  utilizador_nome, Sum(bicicleta_preco)
+from utilizador
+inner join reserva on utilizador_id = reser_utilizador_id
+inner join bicicleta on reser_bicicleta_id = bicicleta_id
+where utilizador_id = '6'
+group by utilizador_nome
+
+
+
+--Ver bicicletas reservadas de um dado utilizador por ordem preço descendente
+select utilizador_nome, bicicleta_tipo, bicicleta_preco
+from utilizador
+inner join reserva on utilizador_id = reser_utilizador_id
+inner join bicicleta on reser_bicicleta_id = bicicleta_id
+where utilizador_id = '5'
+order by bicicleta_preco desc
